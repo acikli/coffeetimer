@@ -10,45 +10,47 @@
 (defonce app-state (atom {:text "Espresso2"}))
 
 (defn timer []
-  [:div {:style {:display :flex
-                 :flex 1
-                 :flex-direction :column}}
-      (let [r 400]
-           [:svg {:width r
-                  :height r}
-               [:circle {:cx (/ r 2)
-                         :cy (/ r 2)
-                         :r (/ r 2)
+  [:div {:class "timer-circle"}
+      (let [d 380]
+           [:svg {:width d
+                  :height d}
+               [:circle {:cx (/ d 2)
+                         :cy (/ d 2)
+                         :r (/ d 2)
                          :fill "none"
-                         :stroke-width 1
-                         :stroke "white"}]])])
+                         :stroke-width 0.5
+                         :stroke "#745A3E"}]])])
 
- ;;    [:div {:style {:flex 1}}]
- ;;     [:div {:style {:flex 1}}]
- ;;     [:div {:style {:flex 1}}]
+
+
+
+
 
 
 (defn hello-world []
-  [:div {:style {:position :absolute
-                 :left 0
-                 :top 0
-                 :bottom 0
-                 :right 0
-                 :display :flex
-                 :flex-direction :column}}
-   [:div {:style {:display :flex
-                  :flex 1
-                  :flex-direction :row}}
-    [:div {:style {:display :flex
-                   :flex 1
-                   :padding 80}}
-         [timer]]
-    [:div {:style {:display :flex
-                   :flex 1
-                   :padding 80}}
-         [timer]]]
-   [:div {:style {:display :flex
-                  :height 140}}]])
+  [:div {:class "container-1"}
+
+   [:div {:class "gradient container-2"}
+    [:div {:class "container-3"}
+      [:div {:class "inner-timer"}
+        [:img {:src "images/espresso.svg"}]
+        [:p {:class "big-time"} "06:23"]]
+      [timer]]
+    [:div {:class "button-last-cup"}
+        [:img {:src "images/empty-cup.svg"}]
+        [:p "last cup gone"]]
+    [:div {:class "container-3"}
+      [:div {:class "inner-timer"}
+        [:img {:src "images/filtercoffee.svg"}]
+        [:p {:class "big-time"} "10:00"]]
+      [timer]
+      [:div {:class "button-last-cup"}
+        [:img {:src "images/empty-cup.svg"}]
+        [:p "last cup gone"]]]]
+   [:div {:class "footer"}
+      [:div {:class "button-re-supply"}
+        [:img {:src "images/cart.svg"}]
+        [:p "re-supply"]]]])
 
 
 (reagent/render-component [hello-world]
