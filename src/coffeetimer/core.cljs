@@ -9,19 +9,33 @@
 
 (defonce app-state (atom {:text "Espresso2"}))
 
+#_(defn progress []
+    [:div {:class "timer-circle"}
+     (let [d 380]
+       [:svg {:width d
+              :height d}
+        [:circle {:cx (/ d 2)
+                  :cy (/ d 2)
+                  :r (/ d 2)
+                  :fill "none"
+                  :stroke-width 0.5
+                  :stroke "#745A3E"}]])])
+
+
+
+
+(defn display [seconds]
+  (str (format "%02d" (quot seconds 60))
+       " : "
+       (format "%02d" (mod seconds 60))))
+
 (defn timer []
-  [:div {:class "timer-circle"}
-      (let [d 380]
-           [:svg {:width d
-                  :height d}
-               [:circle {:cx (/ d 2)
-                         :cy (/ d 2)
-                         :r (/ d 2)
-                         :fill "none"
-                         :stroke-width 0.5
-                         :stroke "#745A3E"}]])])
-
-
+  (loop [seconds 600]
+    (when (> seconds 0)
+      (Thread/sleep 100)
+      (println (display seconds) )
+      (recur (- seconds 1))))
+  (println  (str (display 600) (+ 1 3) (+ 4 6))))
 
 
 
@@ -29,28 +43,40 @@
 
 (defn hello-world []
   [:div {:class "container-1"}
-
    [:div {:class "gradient container-2"}
+    
+    
     [:div {:class "container-3"}
-      [:div {:class "inner-timer"}
-        [:img {:src "images/espresso.svg"}]
-        [:p {:class "big-time"} "06:23"]]
-      [timer]]
-    [:div {:class "button-last-cup"}
-        [:img {:src "images/empty-cup.svg"}]
-        [:p "last cup gone"]]
+     [:div {:class "inner-timer"}
+      [:img {:src "images/espresso.svg"}]
+      [:p {:class "big-time"} display]
+      [:button {:type "submit"
+                :class "btn btn-default"
+                :onClick timer}]]
+     [progess]
+     [:div {:class "button-last-cup"}
+      [:img {:src "images/empty-cup.svg"}]
+      [:p "last cup gone"]]]
+
+
     [:div {:class "container-3"}
-      [:div {:class "inner-timer"}
-        [:img {:src "images/filtercoffee.svg"}]
-        [:p {:class "big-time"} "10:00"]]
-      [timer]
-      [:div {:class "button-last-cup"}
-        [:img {:src "images/empty-cup.svg"}]
-        [:p "last cup gone"]]]]
+     [:div {:class "inner-timer"}
+      [:img {:src "images/filtercoffee.svg"}]
+      [:p {:class "big-time"} display]
+      [:button {:type "submit"
+                :class "btn btn-default"
+                :onClick timer}]]
+     [progess]
+     [:div {:class "button-last-cup"}
+      [:img {:src "images/empty-cup.svg"}]
+      [:p "last cup gone"]]]]
+
+   
+   
    [:div {:class "footer"}
-      [:div {:class "button-re-supply"}
-        [:img {:src "images/cart.svg"}]
-        [:p "re-supply"]]]])
+    [:div {:class "button-re-supply"}
+     [:img {:src "images/cart.svg"}]
+     [:p "re-supply"]]]]]
 
 
 (reagent/render-component [hello-world]
