@@ -93,3 +93,9 @@ p {
   justify-content: center;
   margin-top: 15px;
 }
+.button-start {
+    height: 46px;
+    width: 128px;
+    corner-radius: 23px;
+    border: solid 1px #745A3E;
+}
